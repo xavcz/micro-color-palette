@@ -1,0 +1,15 @@
+{
+  "name": "micro-color-palette",
+  "author": "xavcz (@xav_cz)",
+  "licence": "MIT",
+  "main": "index.js",
+  "scripts": {
+    "start": "micro",
+    "deploy": "now"
+  },
+  "dependencies": {
+    "get-image-colors": "^1.8.1",
+    "micro": "^7.3.2",
+    "node-fetch": "^1.6.3"
+  }
+}
