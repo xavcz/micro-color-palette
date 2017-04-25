@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`micro-color-palette works 1`] = `
+Array [
+  "#3494fc",
+  "#64acfc",
+  "#0474fc",
+  "#8cc4fc",
+  "#3cb0fc",
+]
+`;
