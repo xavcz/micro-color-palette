@@ -1,4 +1,4 @@
-const { test, expect, beforeAll, afterAll } = global;
+const { describe, it, expect, beforeAll, afterAll } = global;
 const micro = require('micro');
 const listen = require('test-listen');
 const fetch = require('node-fetch');
@@ -29,17 +29,67 @@ afterAll(() => {
   servers.forEach(server => server.service.close());
 });
 
-test('works', async () => {
-  const [micro, assets] = servers;
+describe('image types', () => {
+  it('works on png', async () => {
+    const [micro, assets] = servers;
 
-  const res = await fetch(micro.url, {
-    method: 'POST',
-    body: JSON.stringify({
-      src: assets.url + '/micro.png',
-    }),
+    const res = await fetch(micro.url, {
+      method: 'POST',
+      body: JSON.stringify({
+        src: assets.url + '/micro.png',
+      }),
+    });
+
+    const palette = await res.json();
+
+    expect(palette).toMatchSnapshot();
   });
 
-  const palette = await res.json();
+  it('works on gif', async () => {
+    const [micro, assets] = servers;
 
-  expect(palette).toMatchSnapshot();
+    const res = await fetch(micro.url, {
+      method: 'POST',
+      body: JSON.stringify({
+        src: assets.url + '/parrot.gif',
+        type: 'gif',
+      }),
+    });
+
+    const palette = await res.json();
+
+    expect(palette).toMatchSnapshot();
+  });
+
+  it('works on jpg', async () => {
+    const [micro, assets] = servers;
+
+    const res = await fetch(micro.url, {
+      method: 'POST',
+      body: JSON.stringify({
+        src: assets.url + '/koopa.jpg',
+        type: 'jpg',
+      }),
+    });
+
+    const palette = await res.json();
+
+    expect(palette).toMatchSnapshot();
+  });
+
+  it('works on svg', async () => {
+    const [micro, assets] = servers;
+
+    const res = await fetch(micro.url, {
+      method: 'POST',
+      body: JSON.stringify({
+        src: assets.url + '/walle.svg',
+        type: 'svg+xml',
+      }),
+    });
+
+    const palette = await res.json();
+
+    expect(palette).toMatchSnapshot();
+  });
 });
