@@ -38,7 +38,7 @@ Object.keys(types)
   }))
   // run the tests for each definition
   .map(({ name, type, file }) =>
-    test(`testing .${name} (asset: ${file})`, async () => {
+    test(`get color palette from a .${name} (asset: ${file})`, async () => {
       // start up the servers
       const servers = await Promise.all(services.map(runServer));
       const [micro, assets] = servers;

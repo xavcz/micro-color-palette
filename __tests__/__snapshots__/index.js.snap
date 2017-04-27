@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`testing .gif (asset: parrot.gif) 1`] = `
+exports[`get color palette from a .gif (asset: parrot.gif) 1`] = `
 Array [
   "#ccb9f3",
   "#fc948c",
@@ -10,7 +10,7 @@ Array [
 ]
 `;
 
-exports[`testing .jpg (asset: koopa.jpg) 1`] = `
+exports[`get color palette from a .jpg (asset: koopa.jpg) 1`] = `
 Array [
   "#d0694b",
   "#101111",
@@ -20,7 +20,7 @@ Array [
 ]
 `;
 
-exports[`testing .png (asset: micro.png) 1`] = `
+exports[`get color palette from a .png (asset: micro.png) 1`] = `
 Array [
   "#3494fc",
   "#64acfc",
@@ -30,7 +30,7 @@ Array [
 ]
 `;
 
-exports[`testing .svg (asset: walle.svg) 1`] = `
+exports[`get color palette from a .svg (asset: wall-e.svg) 1`] = `
 Array [
   "#394848",
   "#a2b2b3",
