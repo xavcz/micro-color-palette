@@ -13,7 +13,7 @@
     "dev": "NODE_ENV=development nodemon --config package.json --exec micro",
     "lint": "eslint --ext .js src",
     "test": "jest",
-    "prettier": "prettier --write \"src/*.js\" --single-quote=true --trailing-comma=es5 --print-width=100"
+    "prettier": "prettier --write \"{src,__tests__,assets}/*.js\" --single-quote=true --trailing-comma=es5 --print-width=100"
   },
   "dependencies": {
     "get-image-colors": "^1.8.1",

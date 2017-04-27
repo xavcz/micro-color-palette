@@ -2,7 +2,7 @@ const { json, send } = require('micro');
 const fetch = require('node-fetch');
 const getColors = require('get-image-colors');
 
-module.exports = async req => {
+module.exports = async (req, res) => {
   try {
     // parse the body to extract the remote image source and the image type
     const { src, type = 'png' } = await json(req);
@@ -19,7 +19,7 @@ module.exports = async req => {
     // return the palette with hex codes
     return colors.map(color => color.hex());
   } catch (err) {
-    console.log(err);
+    console.log(err); // eslint-disable-line
     send(res, 500, 'no, no, nope. error!');
   }
 };
