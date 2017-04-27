@@ -16,8 +16,11 @@ module.exports = async (req, res) => {
     // extract its color palette as a chroma.js object
     const colors = await getColors(buffer, `image/${type}`);
 
-    // return the palette with hex codes
-    return colors.map(color => color.hex());
+    // return the palette with hex codes, while ensuring they are unique colors
+    // note: chroma.js transformation on svg seems to not filter duplicates
+    return colors
+      .map(color => color.hex())
+      .filter((color, index, palette) => palette.indexOf(color) === index);
   } catch (err) {
     console.log(err); // eslint-disable-line
     send(res, 500, 'no, no, nope. error!');
