@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`micro-color-palette works 1`] = `
+exports[`works 1`] = `
 Array [
   "#3494fc",
   "#64acfc",
