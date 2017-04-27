@@ -1,13 +1,10 @@
+// Native
 const path = require('path');
 const http = require('http');
 const fs = require('fs');
 
-const types = {
-  gif: 'image/gif',
-  jpg: 'image/jpeg',
-  png: 'image/png',
-  svg: 'image/svg+xml',
-};
+// Ours
+const types = require('../src/types');
 
 // exports a simple asset server
 module.exports = http.createServer((req, res) => {

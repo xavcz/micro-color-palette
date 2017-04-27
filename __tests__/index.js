@@ -1,95 +1,61 @@
-const { describe, it, expect, beforeAll, afterAll } = global;
+// Packages
+const { test, expect } = global;
 const micro = require('micro');
 const listen = require('test-listen');
 const fetch = require('node-fetch');
 
-// services definitions
+// Ours
 const services = [
   // micro color palette service to test
-  micro(require('../src/index')),
+  micro(require('../src')),
   // assets service to serve test images
   require('../assets'),
 ];
 
-// async function to run a server from a service
+const types = require('../src/types');
+const getAssetsList = require('../assets/list');
+
+// async utility to run a server from a given service
 const runServer = async service => {
   const url = await listen(service);
 
   return { service, url };
 };
 
-// clean servers for the tests
-let servers;
+// get the list of all the assets to tests
+// ⚠️ this function reads the /assets directory in SYNC way,
+// to provide the test runner with direct access to them
+const assetsList = getAssetsList();
 
-beforeAll(async () => {
-  servers = await Promise.all(services.map(runServer));
-});
+// map each types to create a test definition with the corresponding asset,
+// followed by the corresponding test
+Object.keys(types)
+  // get the tests definition
+  .map(type => ({
+    name: type,
+    type: types[type],
+    file: assetsList.find(img => img.includes(type)),
+  }))
+  // run the tests for each definition
+  .map(({ name, type, file }) =>
+    test(`testing .${name} (asset: ${file})`, async () => {
+      // start up the servers
+      const servers = await Promise.all(services.map(runServer));
+      const [micro, assets] = servers;
 
-afterAll(() => {
-  servers.forEach(server => server.service.close());
-});
+      const res = await fetch(micro.url, {
+        method: 'POST',
+        body: JSON.stringify({
+          src: `${assets.url}/${file}`,
+          type,
+        }),
+      });
 
-describe('image types', () => {
-  it('works on png', async () => {
-    const [micro, assets] = servers;
+      const palette = await res.json();
 
-    const res = await fetch(micro.url, {
-      method: 'POST',
-      body: JSON.stringify({
-        src: assets.url + '/micro.png',
-      }),
-    });
+      expect(palette).toMatchSnapshot();
 
-    const palette = await res.json();
-
-    expect(palette).toMatchSnapshot();
-  });
-
-  it('works on gif', async () => {
-    const [micro, assets] = servers;
-
-    const res = await fetch(micro.url, {
-      method: 'POST',
-      body: JSON.stringify({
-        src: assets.url + '/parrot.gif',
-        type: 'gif',
-      }),
-    });
-
-    const palette = await res.json();
-
-    expect(palette).toMatchSnapshot();
-  });
-
-  it('works on jpg', async () => {
-    const [micro, assets] = servers;
-
-    const res = await fetch(micro.url, {
-      method: 'POST',
-      body: JSON.stringify({
-        src: assets.url + '/koopa.jpg',
-        type: 'jpg',
-      }),
-    });
-
-    const palette = await res.json();
-
-    expect(palette).toMatchSnapshot();
-  });
-
-  it('works on svg', async () => {
-    const [micro, assets] = servers;
-
-    const res = await fetch(micro.url, {
-      method: 'POST',
-      body: JSON.stringify({
-        src: assets.url + '/walle.svg',
-        type: 'svg+xml',
-      }),
-    });
-
-    const palette = await res.json();
-
-    expect(palette).toMatchSnapshot();
-  });
-});
+      // "clean up" by killing the servers
+      servers.forEach(server => server.service.close());
+    })
+  );

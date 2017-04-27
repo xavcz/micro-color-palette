@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`image types works on gif 1`] = `
+exports[`testing .gif (asset: parrot.gif) 1`] = `
 Array [
   "#ccb9f3",
   "#fc948c",
@@ -10,7 +10,7 @@ Array [
 ]
 `;
 
-exports[`image types works on jpg 1`] = `
+exports[`testing .jpg (asset: koopa.jpg) 1`] = `
 Array [
   "#d0694b",
   "#101111",
@@ -20,7 +20,7 @@ Array [
 ]
 `;
 
-exports[`image types works on png 1`] = `
+exports[`testing .png (asset: micro.png) 1`] = `
 Array [
   "#3494fc",
   "#64acfc",
@@ -30,7 +30,7 @@ Array [
 ]
 `;
 
-exports[`image types works on svg 1`] = `
+exports[`testing .svg (asset: walle.svg) 1`] = `
 Array [
   "#394848",
   "#a2b2b3",
