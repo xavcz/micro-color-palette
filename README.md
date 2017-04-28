@@ -6,7 +6,7 @@ Get the color palette of a remote image as a JSON Array. Works with PNG, JPG, GI
 [![Deploy to now](https://deploy.now.sh/static/button.svg)](https://deploy.now.sh/?repo=https://github.com/xavcz/micro-color-palette)
 
 ### how to use
-Make a POST request with your favorite tool to the `micro`service with to get back its color palette:
+Make a POST request with your favorite tool to the `micro`service to get back its color palette:
 
 ```js
 fetch('https://micro-color-palette-you-deployed.now.sh', {
